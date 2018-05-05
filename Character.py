@@ -1,5 +1,6 @@
 class Stats():
     __slots__ = 'str', 'con', 'dex', 'int', 'wis', 'cha', 'max_hp', 'ac'
+    
     def __init__(self, stats):
         self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
 
@@ -16,6 +17,8 @@ hp: {self.max_hp}
 ac: {self.ac}'''
         
 class Character():
+    __slots__ = 'stats', 'attacks', 'hp'
+    
     def __init__(self, stats, attacks):
         self.stats = stats
         self.attacks = attacks
@@ -32,16 +35,17 @@ class Character():
         max_dps = 0
         for target in targets:
             for attack in target.attacks:
-                hit, miss = 0, 0
-                for _ in range(100):
-                    if attack.hits():
-                        hit += 1
-                    else:
-                        miss += 1
-                dps = hit / (hit + miss) * attack.damage.expected
-                if dps > max_dps:
-                    best_target = target
-                    max_dps = dps
+                if attack.uses > 0:
+                    hit, miss = 0, 0
+                    for _ in range(100):
+                        if attack.hits():
+                            hit += 1
+                        else:
+                            miss += 1
+                    dps = hit / (hit + miss) * attack.damage.expected
+                    if dps > max_dps:
+                        best_target = target
+                        max_dps = dps
         return best_target
 
     def pick_attack(self, targets):
@@ -49,16 +53,17 @@ class Character():
         max_dps = 0
         for target in targets:
             for attack in self.attacks:
-                hit, miss = 0, 0
-                for _ in range(100):
-                    if attack.hits():
-                        hit += 1
-                    else:
-                        miss += 1
-                dps = hit / (hit + miss) * attack.damage.expected
-                if dps > max_dps:
-                    best_attack = attack
-                    max_dps = dps
+                if attack.uses > 0:
+                    hit, miss = 0, 0
+                    for _ in range(100):
+                        if attack.hits():
+                            hit += 1
+                        else:
+                            miss += 1
+                    dps = hit / (hit + miss) * attack.damage.expected
+                    if dps > max_dps:
+                        best_attack = attack
+                        max_dps = dps
         return best_attack
         
     def __repr__(self):
