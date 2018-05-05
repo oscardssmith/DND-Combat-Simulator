@@ -23,6 +23,10 @@ class Die():
         ''' Returns a random face.'''
         return random.choice(self.faces)
 
+    def expected(self):
+        if faces == None:
+            return (self.maximum + 1)/2
+
     def __repr__(self):
         if self.faces == range(1, self.maximum + 1):
             return 'd' + str(self.maximum)
@@ -37,6 +41,9 @@ class DiceList(list):
         for die in self:
             val += die.roll()
         return val
+    
+    def expected(self):
+        return sum(self.expected())
         
 def die_parse(dice):
     '''takes in a string like 4d6+d8+3 and turns it into a DiceList'''

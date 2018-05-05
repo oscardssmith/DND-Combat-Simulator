@@ -25,7 +25,24 @@ class Character():
 
     def restore(self):
         self.hp = stats.max_hp
-    
+
+    def target(self, targets):
+        best = None
+        max_dps = 0
+        for target in targets:
+            for attack in target.attacks:
+                hit, miss = 0, 0
+                for _ in range(100):
+                    if attack.hits():
+                        hit += 1
+                    else:
+                        miss += 1
+                dps = hit / (hit + miss) * attack.damage.expected
+                if dps > max_dps:
+                    best = (target, attack)
+                    max_dps = dps
+        return best
+        
     def __repr__(self):
         return 'Character\n'+str(self.stats)+'\n'+str(self.attacks)
     def __str__(self):

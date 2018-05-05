@@ -17,9 +17,12 @@ class Attack:
     def execute(attacker,targets):
         self.uses-=1
         for target in targets:
-            toHitRoll.roll()
-            threshold=eval(test.format(target[stat]))
-            if(ToHitRoll>threshold):
-                target['hp']-=damage.roll()
+            if self.hits(attacker, target):
+                target.hp-=damage.roll()
                 if(target['hp']>target.stats.max_hp):
                     target['hp']=target.stats.max_hp
+
+    def hits(self, attacker, target):
+        toHitRoll.roll()
+        threshold=eval(test.format(target[stat]))
+        return ToHitRoll > threshold
