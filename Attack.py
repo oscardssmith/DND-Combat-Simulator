@@ -1,13 +1,15 @@
 from Die_Simulator import die_parse
 
 class Attack:
-    def __init__(self, toHitRoll, damage, stat = 'ac', test='{0}'):
+    def __init__(self, toHitRoll, damage, stat = 'ac', test='{0}', uses = float('inf')):
         self.toHitRoll=die_parse(toHitRoll)
         self.stat=stat
         self.damage=die_parse(damage)
         self.test=test
+        self.uses=uses
     
     def execute(attacker,targets):
+        self.uses-=1
         for target in targets:
             toHitRoll.roll()
             threshold=eval(test.format(target[stat]))
