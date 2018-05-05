@@ -19,14 +19,14 @@ for i in range(3,21):
     
 for i in range(0,10000):
     for character in characters:
-        print(character)
+        #print(character)
         for attack in character.attacks:
-            totals = [0]*17
+            totals = [0]*len(range(3,21))
             i=0
             for enemy in enemies:
-                attack.execute(character,enemy)
+                attack.execute(character,(enemy,))
                 totals[i]+=enemy.stats.max_hp-enemy.hp
                 enemy.restore()
                 i+=1
-            print(totals)
+            #print(totals)
 print(characters)

@@ -44,6 +44,9 @@ class DiceList(list):
     
     def expected(self):
         return sum(self.expected())
+
+    def __str__(self):
+        return '+'.join(map(str,self))
         
 def die_parse(dice):
     '''takes in a string like 4d6+d8+3 and turns it into a DiceList'''

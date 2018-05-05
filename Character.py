@@ -1,4 +1,5 @@
 class Stats():
+    __slots__ = 'str', 'con', 'dex', 'int', 'wis', 'cha', 'max_hp', 'ac'
     def __init__(self, stats):
         self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
 
@@ -11,7 +12,7 @@ dex: {self.dex}
 int: {self.int}
 wis: {self.wis}
 cha: {self.cha}
-hp: {self.hp}
+hp: {self.max_hp}
 ac: {self.ac}'''
         
 class Character():
