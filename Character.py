@@ -2,7 +2,17 @@ class Stats():
     __slots__ = 'str', 'con', 'dex', 'int', 'wis', 'cha', 'max_hp', 'ac'
     
     def __init__(self, stats):
-        self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
+        if  isinstance(stats, dict):
+            self.str = stats['str']
+            self.con = stats['con']
+            self.dex = stats['dex']
+            self.int = stats['int']
+            self.wis = stats['wis']
+            self.cha = stats['cha']
+            self.max_hp = stats['max_hp']
+            self.ac =stats['ac']
+        else:
+            self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
 
     def __repr__(self):
         return str(self)
