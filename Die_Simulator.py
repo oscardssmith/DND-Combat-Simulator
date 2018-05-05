@@ -54,6 +54,9 @@ def die_parse(dice):
                     dice.append(Die(int(parts[1])))
     return dice
 
+def modifier(number):
+    return (number-10)//2
+
 if __name__ == '__main__':
     a = DiceList((Die(6),Die(8)))
     b = die_parse('4d6+d8+3')

@@ -1,12 +1,11 @@
 class Stats():
     def __init__(self, stats):
-        self.str,self.con,self.dex,self.int,self.wis,self.cha,self.hp,self.ac = stats
+        self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
 
     def __repr__(self):
         return str(self)
     def __str__(self):
         return f'''str: {self.str}
-        
 con: {self.con}
 dex: {self.dex}
 int: {self.int}
@@ -19,10 +18,14 @@ class Character():
     def __init__(self, stats, attacks):
         self.stats = stats
         self.attacks = attacks
+        self.hp = stats.max_hp
         
     def attack(self, target, attack):
         attack.execute(target)
 
+    def restore(self):
+        self.hp = stats.max_hp
+    
     def __repr__(self):
         return 'Character\n'+str(self.stats)+'\n'+str(self.attacks)
     def __str__(self):
