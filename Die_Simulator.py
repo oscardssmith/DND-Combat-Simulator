@@ -14,7 +14,7 @@ class Die():
         '''
         
         self.maximum = maximum
-        if faces = None:
+        if faces == None:
             self.faces = range(1, maximum + 1)
         else:
             self.faces = faces
