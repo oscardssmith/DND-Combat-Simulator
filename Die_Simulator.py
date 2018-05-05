@@ -43,12 +43,10 @@ def die_parse(dice):
     dice_strings = dice.split('+')
     dice = DiceList()
     for die in dice_strings:
-        print(die)
         if 'd' not in die:
             dice.append(Die(int(die)))
         else:
             parts = die.split('d')
-            print(parts)
             if parts[0] == '':
                 dice.append(Die(int(parts[1])))
             else:
