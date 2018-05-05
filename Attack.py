@@ -8,6 +8,9 @@ class Attack:
         self.test=test
         self.uses=uses
     
+    def __str__(self):
+        print('{0}x {1} to hit, {2} damage'.format(uses,toHitRoll,damage))
+    
     def execute(attacker,targets):
         self.uses-=1
         for target in targets:
