@@ -13,11 +13,12 @@ class Stats():
             self.ac =stats['ac']
         else:
             self.str,self.con,self.dex,self.int,self.wis,self.cha,self.max_hp,self.ac = stats
-
+            
     def __repr__(self):
         return str(self)
     def __str__(self):
         return f'''str: {self.str}
+
 con: {self.con}
 dex: {self.dex}
 int: {self.int}
@@ -29,10 +30,13 @@ ac: {self.ac}'''
 class Character():
     __slots__ = 'stats', 'attacks', 'hp'
     
-    def __init__(self, stats, attacks):
+    def __init__(self, stats, attacks, brain=None):
         self.stats = stats
         self.attacks = attacks
         self.hp = stats.max_hp
+
+    def copy(self):
+        return Character(self.stats,self.attacks,self.brain)
         
     def attack(self, target, attack):
         attack.execute(target)
@@ -58,22 +62,21 @@ class Character():
                         max_dps = dps
         return best_target
 
-    def pick_attack(self, targets):
+    def pick_attack(self, target):
         best_attack = None
         max_dps = 0
-        for target in targets:
-            for attack in self.attacks:
-                if attack.uses > 0:
-                    hit, miss = 0, 0
-                    for _ in range(100):
-                        if attack.hits():
-                            hit += 1
-                        else:
-                            miss += 1
-                    dps = hit / (hit + miss) * attack.damage.expected
-                    if dps > max_dps:
-                        best_attack = attack
-                        max_dps = dps
+        for attack in self.attacks:
+            if attack.uses > 0:
+                hit, miss = 0, 0
+                for _ in range(100):
+                    if attack.hits():
+                        hit += 1
+                    else:
+                        miss += 1
+                dps = hit / (hit + miss) * attack.damage.expected
+                if dps > max_dps:
+                    best_attack = attack
+                    max_dps = dps
         return best_attack
         
     def __repr__(self):
@@ -87,4 +90,5 @@ if __name__ == '__main__':
     a = Attack('d20+1', 'd8+1')
     b = Spell('d20+3','d8',stat='dex', test='13-modifier({0})', uses=5)
     Adam = Character(Stats((12,11,10,10,14,17,10,16)), [a,b])
-    print(Adam)
+    Adam.target(None)
+    #print(Adam)

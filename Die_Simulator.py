@@ -24,8 +24,7 @@ class Die():
         return random.choice(self.faces)
 
     def expected(self):
-        if faces == None:
-            return (self.maximum + 1)/2
+        return (self.maximum + 1)/2
 
     def __repr__(self):
         if self.faces == range(1, self.maximum + 1):
@@ -43,8 +42,8 @@ class DiceList(list):
         return val
     
     def expected(self):
-        return sum(self.expected())
-
+        return sum(item.expected() for item in self)
+        
     def __str__(self):
         return '+'.join(map(str,self))
         
