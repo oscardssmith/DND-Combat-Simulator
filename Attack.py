@@ -8,6 +8,9 @@ class Attack:
         self.test=test
         self.uses=uses
     
+    def __repr__(self):
+        return str(self)
+    
     def __str__(self):
         return '{0}x {1} to hit, {2} damage'.format(uses,toHitRoll,damage)
     
