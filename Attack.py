@@ -1,7 +1,7 @@
 from Die_Simulator import die_parse, modifier
-from Character import Character, Stats
 
 class Attack:
+    __slots__ = 'toHitRoll', 'damage'
     def __init__(self, toHitRoll, damage):
         self.toHitRoll = die_parse(toHitRoll)
         self.damage = die_parse(damage)
@@ -10,7 +10,7 @@ class Attack:
         return str(self)
     
     def __str__(self):
-        return f'{self.uses} uses: {self.toHitRoll} to hit, {self.damage} damage'
+        return f'{self.toHitRoll} to hit, {self.damage} damage'
     
     def execute(self, attacker,targets):
         for target in targets:
@@ -21,10 +21,10 @@ class Attack:
         return self.toHitRoll.roll() > target.stats.ac
 
 class Spell(Attack):
+    __slots__ = 'stat', 'test', 'uses'
     def __init__(self, toHitRoll, damage, stat = 'ac', test='{0}', uses = float('inf')):
-        self.toHitRoll = die_parse(toHitRoll)
+        super().__init__(toHitRoll, damage)
         self.stat = stat
-        self.damage = die_parse(damage)
         self.test = test
         self.uses = uses
 
@@ -43,11 +43,13 @@ class Spell(Attack):
         return roll > threshold
 
 if __name__ == '__main__':
-    a = Attack('d20+1', 'd8+1')
     
-    Adam = Character(Stats((12,11,10,10,14,17,10,16)),
-                    [Attack('d20+1', 'd8+1'),Attack('d20+1', 'd10+1'),])
+    from Character import Character, Stats
+    a = Attack('d20+1', 'd8+1')
+    b = Spell('d20+3','d8',stat='dex', test='13-modifier({0})', uses=5)
+    Adam = Character(Stats((12,11,10,10,14,17,10,16)), [])
 
     for _ in range(10):
         a.execute(Adam, (Adam,))
-    print(a)
+        b.execute(Adam, (Adam,))
+    print(a, Adam)

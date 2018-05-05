@@ -5,7 +5,7 @@ class Die():
         1 is the loneliest number of dice.
         It either has some faces or is just a plain old x sided die.
     '''
-    
+    __slots__ = 'maximum', 'faces'
     def __init__(self, maximum=6, faces=None):
         '''
             Takes in a maximum or a sequence of faces.

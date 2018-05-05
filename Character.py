@@ -23,7 +23,7 @@ dex: {self.dex}
 int: {self.int}
 wis: {self.wis}
 cha: {self.cha}
-hp: {self.max_hp}
+max hp: {self.max_hp}
 ac: {self.ac}'''
         
 class Character():
@@ -77,6 +77,14 @@ class Character():
         return best_attack
         
     def __repr__(self):
-        return 'Character\n'+str(self.stats)+'\n'+str(self.attacks)
+        return f'Character\n{self.stats}\nhp: {self.hp}\n{self.attacks}'
     def __str__(self):
-        return 'Character\n'+str(self.stats)
+        return f'Character\n{self.stats}\nhp: {self.hp}'
+
+if __name__ == '__main__':
+    from Attack import Attack, Spell
+
+    a = Attack('d20+1', 'd8+1')
+    b = Spell('d20+3','d8',stat='dex', test='13-modifier({0})', uses=5)
+    Adam = Character(Stats((12,11,10,10,14,17,10,16)), [a,b])
+    print(Adam)
