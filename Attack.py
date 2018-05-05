@@ -21,3 +21,5 @@ class Attack:
             threshold=eval(test.format(target[stat]))
             if(ToHitRoll>threshold):
                 target['hp']-=damage.roll()
+                if(target['hp']>target.stats.max_hp):
+                    target['hp']=target.stats.max_hp
