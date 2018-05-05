@@ -19,6 +19,8 @@ class Attack:
         for target in targets:
             if self.hits(attacker, target):
                 target.hp-=damage.roll()
+                if(target['hp']>target.stats.max_hp):
+                    target['hp']=target.stats.max_hp
 
     def hits(self, attacker, target):
         toHitRoll.roll()
